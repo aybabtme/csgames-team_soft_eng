@@ -12,4 +12,13 @@ public class Query {
 	public List<QueryItem> getItems() {
 		return mItems;
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (QueryItem item : mItems) {
+			sb.append(item.toString());
+			sb.append(' ');
+		}
+		return sb.toString().trim();
+	}
 }

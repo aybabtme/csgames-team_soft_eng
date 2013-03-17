@@ -60,7 +60,28 @@ public class QueryParser {
 	}
 	
 	private List<QueryItem> parse(String[] tokens) {
-		return new ArrayList<QueryItem>();
+		ArrayList<QueryItem> items = new ArrayList<QueryItem>();
+		
+		QueryOperator nextOp = QueryOperator.And;
+		for (String token : tokens) {
+			token = token.toLowerCase();
+			if (token.charAt(0) == '{') {
+				token = token.substring(1, token.length()-1);
+				items.get(items.size()-1).setAtLeast(Integer.parseInt(token));
+			} else if (token.equals("and")) {
+				nextOp = QueryOperator.And;
+			} else if (token.equals("or")) {
+				nextOp = QueryOperator.Or;
+			} else if (token.equals("not")) {
+				nextOp = QueryOperator.Not;
+			} else {
+				QueryItem item = new QueryItem(token, nextOp);
+				items.add(item);
+				nextOp = QueryOperator.And;
+			}
+		}
+		
+		return items;
 	}
 	
 	private String preprocess(String query) {
