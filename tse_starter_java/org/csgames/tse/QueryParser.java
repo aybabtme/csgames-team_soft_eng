@@ -36,6 +36,10 @@ public class QueryParser {
 				} else {
 					sb.append(c);
 				}
+			} else if (c == '{' && sb.length() > 0) {
+				words.add(sb.toString());
+				sb.setLength(0);
+				sb.append(c);
 			} else if (c == ' ') {
 				words.add(sb.toString());
 				sb.setLength(0);
@@ -92,6 +96,7 @@ public class QueryParser {
 	
 	public static void main(String[] argv) {
 		QueryParser q = new QueryParser();
+		System.out.println(q.parse("The{5}"));
 		System.out.println(q.parse("\"the * example\"{4} {CALC 8*(8+9/3)}..{CALC 90000/10+1} OR *park NOT bench"));
 		System.out.println(q.parse("Test {CALC 8+1+3+5/2} oaeu {calc 4+2}"));
 		System.out.println(q.parse("an example {CALC 3}"));
