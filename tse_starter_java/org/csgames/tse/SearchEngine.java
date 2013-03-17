@@ -61,7 +61,11 @@ public class SearchEngine {
 	}
 	
 	private void queryNOT(List<String> data, String word) {
-		for (String sentence : data) {
+		String[] dataAr = new String[data.size()];
+		for(int i = 0; i < data.size(); i++){
+			dataAr[i] = data.get(i);
+		}
+		for (String sentence : dataAr) {
 			String caseInsensitiveSentence = sentence.toLowerCase();
 			
 			if (caseInsensitiveSentence.contains(word)) {
