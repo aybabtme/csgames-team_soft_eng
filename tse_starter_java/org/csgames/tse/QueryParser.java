@@ -9,12 +9,7 @@ public class QueryParser {
 	
 	public Query parse(String query) {
 		query = preprocess(query);
-		System.out.println("PRE: " + query);
 		String[] tokens = tokenize(query);
-		
-		for (String s : tokens) {
-			System.out.println("Token: " + s);
-		}
 		
 		List<QueryItem> items = parse(tokens);
 		return new Query(items);
@@ -115,7 +110,7 @@ public class QueryParser {
 		return sb.toString();
 	}
 	
-	public static void main(String[] argv) {
+	private static void main(String[] argv) {
 		QueryParser q = new QueryParser();
 		System.out.println(q.parse("The{5}"));
 		System.out.println(q.parse("\"the * example\"{4} {CALC 8*(8+9/3)}..{CALC 90000/10+1} OR *park NOT bench"));
