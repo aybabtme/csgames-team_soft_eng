@@ -21,13 +21,20 @@ public class CalcParser {
 	}
 	
 
+	/**
+	 * Remove whitespace from a given string
+	 * @param equation
+	 * @return
+	 */
 	private static String stripWhitespace(String equation) {
 		return equation.replaceAll("\\s", "");
 	}
 
 	
 	/**
-	 * I lol at you, Ô Java-Gods.
+	 * I lol at you, Ô Java-Gods.  Solves an equation using python. Writes
+	 * a Python program on the hard drive, then run it, then read the output,
+	 * then return this output as the result.
 	 * @param equation an equation string
 	 * @return the value, evaluated by Python, lol
 	 */
@@ -35,25 +42,28 @@ public class CalcParser {
 		PrintStream tempWriter = null;
 		BufferedReader reader = null;
 		try {
+			// create the python program
 			File tempFile = new File("temp.py");
 			tempWriter = new PrintStream(tempFile);
 			tempWriter.printf("print(%s)", equation);
-			tempWriter.close();
 			
+			// prepare it
 			Process python = new ProcessBuilder("python", "temp.py").start();
 			reader = new BufferedReader(new InputStreamReader(python.getInputStream()));
+			// let it run
 			python.waitFor();
+			// get the output of the python program
 			String response = reader.readLine();
+			// kill the python process
 			python.destroy();
-			
+			// cleanup
 			tempFile.delete();
 			
 			return response;
 		} catch (IOException e) {
-			e.printStackTrace();
+			// don't care
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// don't care
 		} finally {
 			close(tempWriter);
 			close(reader);
@@ -61,7 +71,10 @@ public class CalcParser {
 		return "";
 	}
 	
-	
+	/**
+	 * Close anything that could be closeable, null or not.  Discards thrown exceptions.
+	 * @param c a closeable object, such as a Stream, Socket, Writer, Reader, wtv.
+	 */
 	private static void close(Closeable c){
 		if(c != null){
 			try {
@@ -69,8 +82,6 @@ public class CalcParser {
 			} catch (IOException e) {
 				// don't care!!
 			}
-				
 		}
 	}
-	
 }
