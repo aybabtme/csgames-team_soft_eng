@@ -7,8 +7,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-
+/**
+ * Provides a single utility, solving equations given as Strings (result as String too).  See method <pre>String solve(String)</pre>
+ * @author Antoine Grondin
+ *
+ */
 public class CalcParser {
+
+	/*
+	 * EVERYTHING IS COMPLETE, NOTHING TO DO HERE
+	 */
+	
 	
 	/**
 	 * Considers the string as an equation and solves for its value
