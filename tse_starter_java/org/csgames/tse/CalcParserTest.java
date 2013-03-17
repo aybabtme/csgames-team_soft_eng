@@ -34,6 +34,19 @@ public class CalcParserTest {
 		assertEquals("1+1 should equal 2", expected, actual);
 	}
 	
+	@Test
+	public void testAnotherTrivialEquation() {
+		String expected = "4";
+		String actual = CalcParser.solve("2*2");
+		assertEquals("2*2 should equal 4", expected, actual);
+	}
+	
+	@Test
+	public void testTrivialWithWhiteSpaceEquation() {
+		String expected = "4";
+		String actual = CalcParser.solve("2 * 2");
+		assertEquals("2 * 2 should equal 4", expected, actual);
+	}
 	
 
 }
